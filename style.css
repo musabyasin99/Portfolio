@@ -1,0 +1,650 @@
+*,
+*::before,
+*::after,
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  background: darkblue;
+  height: 6px;
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 100vw;
+}
+::-webkit-scrollbar-thumb {
+  background: dodgerblue;
+  border-radius: 100vw;
+}
+
+body {
+  /*
+  background: fixed linear-gradient(25deg, red, black, green) no-repeat;
+  background-size: 400% 400%;
+  */
+  background: url("./assets/images/bg.jpg") fixed 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  animation: bgAnim 90s infinite;
+  background-size: cover;
+}
+@keyframes bgAnim {
+  0% {
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+  }
+  50% {
+    background-size: 200% 100%;
+    background-position: 50% 100%;
+  }
+  75% {
+    background-size: 300% 200%;
+    background-position: 100% 50%;
+  }
+  100% {
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+  }
+}
+
+li {
+  list-style: none;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+i {
+  font-size: 1.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: 300;
+  padding: 5px;
+  cursor: default;
+}
+
+.alertBox {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0);
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: -50;
+  background: #0000009d;
+  backdrop-filter: blur(20px);
+  transition: all 0.6s ease-in-out;
+}
+.alertBox.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 50;
+}
+.box {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 50%;
+  height: 25%;
+  border-radius: 36px;
+  padding: 20px;
+  background: linear-gradient(-24deg, black, dodgerblue);
+  color: white;
+}
+.box button {
+  width: 40px;
+  height: 40px;
+  font-size: 0.8rem;
+  background: orangered;
+  border-radius: 50%;
+  border-color: transparent;
+  align-self: flex-end;
+  color: white;
+  transition: all 0.2s ease-in;
+}
+.box button:hover {
+  transform: scale(1.05);
+}
+/*     Sidebar Toggle & Sidebar     */
+
+.toggle {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background: inherit;
+  border-radius: 0 0 24px 0;
+  cursor: pointer;
+  transition: 0.3s all ease;
+  transition-delay: 0.4s;
+  z-index: -100;
+}
+.toggle.active {
+  z-index: 21;
+  transition-delay: 0.4s;
+}
+.toggle::after {
+  content: "";
+  position: absolute;
+  transform: translateY(10px);
+  width: 30px;
+  height: 2px;
+  background: white;
+  transition: 0.3s all ease;
+}
+.toggle.active::after {
+  transform: translateY(0) rotate(45deg);
+  box-shadow: 0 0 0 transparent;
+}
+.toggle::before {
+  content: "";
+  position: absolute;
+  transform: translateY(-10px);
+  width: 30px;
+  height: 2px;
+  background: white;
+  box-shadow: 0 10px 0 green;
+  transition: 0.3s all ease;
+}
+.toggle.active::before {
+  transform: translateY(0) rotate(-45deg);
+  box-shadow: 0 0 0 transparent;
+}
+
+.wrapper {
+  position: fixed;
+  top: 65px;
+  left: 10px;
+  width: 400px;
+  height: calc(100% - 70px);
+  background: #0000004b;
+  border-radius: 48px;
+  backdrop-filter: blur(20px);
+  color: white;
+  cursor: default;
+  z-index: 20;
+  overflow: auto;
+  transition: all 0.6s;
+}
+.wrapper .top {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  padding: 0;
+  gap: 0;
+}
+.wrapper .top .userImg {
+  width: 25vh;
+  height: 25vh;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.wrapper .top .socialmedia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.wrapper .top .socialmedia a {
+  transition: all 0.3s ease-in;
+}
+.wrapper .top .socialmedia a i:hover {
+  transform: scale(1.2);
+}
+.wrapper .top .socialmedia a:hover:first-child {
+  color: rgb(1, 60, 185);
+}
+.wrapper .top .socialmedia a:hover:nth-child(2) {
+  color: rgb(173, 1, 173);
+}
+.wrapper .top .socialmedia a:hover:nth-child(3) {
+  color: dodgerblue;
+}
+.wrapper .top .socialmedia a:hover:nth-child(4) {
+  color: slateblue;
+}
+.wrapper .top .socialmedia a:hover:nth-child(5) {
+  color: darkslategrey;
+}
+.wrapper .top .username {
+  position: relative;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+.wrapper .top .username:hover {
+  color: dodgerblue;
+}
+.wrapper .top .username::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: dodgerblue;
+  transition: 0.2s all ease;
+}
+.wrapper .top .username:hover::before {
+  width: 100%;
+}
+.wrapper .navBar {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  flex-direction: column;
+  width: 100%;
+  height: 50%;
+  padding: 0 0;
+  overflow: auto;
+}
+.wrapper .navBar .navItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  transition: all 0.3s ease-in;
+  padding-block: 10px;
+  cursor: pointer;
+}
+.wrapper .navBar .navItem:hover > a {
+  color: dodgerblue;
+}
+.wrapper .navBar .navItem a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.wrapper .navBar .navItem a .text {
+  position: relative;
+}
+.wrapper .navBar .navItem a .text:hover {
+  color: darkcyan;
+}
+.wrapper .navBar .navItem:hover > a i {
+  transform: scale(1.2);
+}
+.wrapper .navBar .navItem a .text::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: dodgerblue;
+  transition: 0.2s all ease;
+}
+.wrapper .navBar .navItem:hover > a .text::before {
+  width: 100%;
+}
+/*    Header    */
+
+header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background: #00000065;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 2px gray;
+  border-radius: 0 0 24px 24px;
+  padding: 10px;
+  z-index: 20;
+}
+header.logo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+header .icon {
+  font-size: 2rem;
+  color: orangered;
+}
+header .text {
+  font-size: 0.9rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: white;
+}
+
+/*     Main Styling     */
+
+main {
+  margin: 70px 0 0 430px;
+  min-height: calc(100vh - 100px);
+  background: transparent;
+}
+
+section {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 15px;
+  background: #ffffff11;
+  width: calc(100vw - 440px);
+  border-radius: 48px;
+  margin-block: 40px;
+  margin-inline: auto;
+  backdrop-filter: blur(5px);
+  padding: 0;
+  z-index: 0;
+  transition: 0.8s all ease;
+  overflow: hidden;
+  transform: skewY(20deg) translateX(-150%);
+  cursor: default;
+}
+
+.info {
+  overflow: hidden;
+}
+section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 90%;
+  background: #000;
+  transform: skewY(-15deg);
+  z-index: -1;
+}
+section::after {
+  content: "";
+  position: absolute;
+  bottom: -130px;
+  width: 100%;
+  height: 50%;
+  background: inherit;
+  transform: skewY(-15deg);
+  z-index: -1;
+}
+.el {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  flex: 45%;
+  height: 100%;
+  cursor: default;
+}
+.info .details {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 22px;
+  font-weight: 300;
+  color: rgba(245, 245, 245, 0.6);
+}
+h1::first-letter {
+  font-family: cursive;
+  font-weight: 400;
+  font-size: 3rem;
+}
+.info .details p {
+  font-weight: 200;
+  font-size: 0.8rem;
+}
+.info .details h1::first-letter,
+.info .details h3::first-letter {
+  font-family: cursive;
+  font-weight: 400;
+  font-size: 3rem;
+  color: rgba(0, 139, 139, 0.8);
+}
+.info .imageWrap .image {
+  width: 80%;
+  border-radius: 50%;
+}
+
+.about,
+.contact {
+  min-height: 50vh;
+  padding: 10px;
+  color: rgba(245, 245, 245, 0.8);
+}
+.about h1::first-letter,
+.contact h1::first-letter {
+  color: darkgreen;
+}
+.about:after {
+  left: -2px;
+  background: rgba(0, 100, 0, 1);
+  z-index: -3;
+}
+.about .desc h3 {
+  text-align: center;
+  letter-spacing: 2px;
+  border-bottom: 1px solid silver;
+}
+.about .desc h3::first-letter {
+  font-weight: 100;
+  font-size: 2rem;
+  color: yellow;
+}
+.about .desc ul {
+  padding: 10px;
+}
+.about .desc p,
+.about .desc ul li {
+  list-style: disc;
+  padding: 5px;
+  font-size: 0.8rem;
+}
+.skills {
+  padding: 20px;
+  color: rgba(245, 245, 245, 0.8);
+}
+.skills h1::first-letter {
+  color: rgba(153, 2, 2, 0.8);
+}
+
+.skills::after {
+  height: 80%;
+  background: darkred;
+  transform: skewY(-15deg);
+  z-index: -2;
+}
+.contact::after {
+  height: 80%;
+  background: darkorange;
+  transform: skewY(-15deg);
+  z-index: -2;
+}
+.contact h1::first-letter {
+  color: darkorange;
+}
+.contact h2::first-letter {
+  font-weight: 400;
+  font-size: 2rem;
+  color: orangered;
+}
+.contact .mail {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}
+.field {
+  background: inherit;
+  border-color: transparent;
+  outline: none;
+  width: 80%;
+  padding: 10px 20px;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid silver;
+  text-align: center;
+  color: antiquewhite;
+  transition: border 0.3s ease-in;
+}
+.det:focus {
+  border-bottom: 1px solid red;
+}
+.det:valid {
+  border-bottom: 1px solid green;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: rgb(0, 43, 44, 0.6);
+  border-color: transparent;
+  border-radius: 50%;
+  color: #ffffffc2;
+  transition: background 0.2s ease-out;
+}
+.btn:hover {
+  background: darkcyan;
+  color: white;
+}
+.progressBar {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: conic-gradient(
+    orangered,
+    blue,
+    purple,
+    cyan calc(var(--width, 3) * 1%),
+    black 0%
+  );
+  border-radius: 50%;
+  transition: background 0.4s ease-in-out;
+}
+.progressBar .xp {
+  font-family: monospace;
+  font-weight: 200;
+  font-size: 0.9rem;
+  color: white;
+  z-index: 1;
+}
+.progressBar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.goTop {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  right: 10px;
+  background: orangered;
+  bottom: 20px;
+  z-index: 20;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+.goTop:hover {
+  transform: scale(0.9);
+  background: orangered;
+}
+/*      Footer     */
+footer {
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  font-size: 0.8rem;
+  color: white;
+  z-index: 0;
+}
+
+@media screen and (max-width: 998px) {
+  .toggle {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+  }
+  .wrapper {
+    position: fixed;
+    top: 65px;
+    left: 5vw;
+    width: 90vw;
+    transform: scale(0) translateX(-100%);
+    z-index: 20;
+    border-radius: 48px;
+  }
+  .wrapper.active {
+    transform: scale(1) translateX(0);
+  }
+  main {
+    margin: 70px 0 0 0;
+    min-height: calc(100vh - 100px);
+    background: inherit;
+  }
+  section {
+    width: 95vw;
+  }
+  .el {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 100%;
+  }
+  .info .imageWrap .image {
+    margin-inline: auto;
+    width: 50%;
+    border-radius: 50%;
+  }
+}
